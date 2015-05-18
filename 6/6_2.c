@@ -25,6 +25,7 @@ int main(int argc, char* argv[]){
   //模範解答(bad longjump)のように、一つ「またいで」いると落ちる、直接だと普通にmainに帰ってくる
   //IDEONEだと無限にjumpsetを繰り返して落ちている。処理系依存っぽい。
   //サンプルコード(bad_longjump.c)が関数を二重にしている理由は謎。
+  //gcc4.7.2, clang-600.0.56だとmainに戻ってくることを確認。ただしgdbでb 16してrun -> nすると落ちる。
   write(STDIN_FILENO, "main\n", 5);
   perror("error?");
   return 0;
