@@ -44,6 +44,8 @@ main(int argc, char *argv[])
     printf("Allocating %d*%d bytes\n", numAllocs, blockSize);
     for (j = 0; j < numAllocs; j++) {
         ptr[j] = malloc(blockSize);
+        //ex ./a.out 1000 1000 1 
+        printf("now program break:          %10p\n", sbrk(0));
         if (ptr[j] == NULL)
             errExit("malloc");
     }
