@@ -29,7 +29,7 @@ int my_initgroups(const char *user, gid_t group){
     while( (member=(grp -> gr_mem)[i]) != NULL){
 
       if(strcmp(user, member) == 0){
-        //groups[j] = (grp -> gr_gid);
+        groups[j] = (grp -> gr_gid);
         //printf("insert:%d\n", groups[j]);
         //strcpy(groups[j],  grp->gr_name);
         printf("belongs to:%s\n", grp -> gr_name);
@@ -39,13 +39,15 @@ int my_initgroups(const char *user, gid_t group){
     }
 
   }
+  groups[j] = getegid();
+  j++;
   /*
   for(int h = 0; h < j; h++){
     printf("%d\n",groups[h]);
   }
-  //plus 指定 gid(group)
-  //setgroups(j, groups);
   */
+  //plus 指定 gid(group)
+  setgroups(j, groups);
 }
 
 void  print_groups(void) {

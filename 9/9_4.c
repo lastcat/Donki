@@ -9,13 +9,44 @@
 
 void problemA(void) {
   //effective=real
-  uid_t real = getuid();
-  uid_t effective = geteuid();
-  uid_t saved = getresuid();
+  uid_t real;
+  uid_t effective;
+  uid_t saved;
+  getresuid(&real, &effective, &saved);
+  printf("initial real:%d, effective:%d, saved%d\n", real, effective, saved);
 
+  //setresuid(-1, real, -1);
+  ///* or
+  seteuid(real);
+  //*/
+  getresuid(&real, &effective, &saved);
+  printf("initial real:%d, effective:%d, saved%d\n", real, effective, saved);
+
+  //setresuid(-1, saved, -1);
+  ///*
+  seteuid(saved);
+  //*/
+  getresuid(&real, &effective, &saved);
+  printf("initial real:%d, effective:%d, saved%d\n", real, effective, saved);
+
+}
+
+void problemB(void){
+  uid_t real;
+  uid_t effective;
+  uid_t saved;
+  getresuid(&real, &effective, &saved);
+  printf("initial real:%d, effective:%d, saved%d\n", real, effective, saved);
+
+  setresuid(-1, real, -1);
+  getresuid(&real, &effective, &saved);
+  printf("initial real:%d, effective:%d, saved%d\n", real, effective, saved);
+
+  setresuid(-1, -1, real);
+  getresuid(&real, &effective, &saved);
   printf("initial real:%d, effective:%d, saved%d\n", real, effective, saved);
 }
 
 int main(){
-  ploblemA();
+  problemA();
 }
